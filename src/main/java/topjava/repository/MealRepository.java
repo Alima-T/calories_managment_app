@@ -1,5 +1,6 @@
 package topjava.repository;
 
+
 import topjava.model.Meal;
 
 import java.time.LocalDateTime;
@@ -9,7 +10,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class MealRepository implements Repository {
+public class MealRepository implements IRepository {
     private Map<Integer, Meal> repository = new ConcurrentHashMap<>(); //thread save realisation for HashMap is ConcurrentHashMap
     private AtomicInteger counter = new AtomicInteger(0);
 
@@ -25,10 +26,7 @@ public class MealRepository implements Repository {
 
     @Override
     public void createMeal(Meal meal) {
-        if (meal.getId()==null) {
-            meal.setId(counter.incrementAndGet());
-        }
-        repository.put(meal.getId(),meal);
+
     }
 
     @Override
@@ -43,6 +41,6 @@ public class MealRepository implements Repository {
 
     @Override
     public void updateMeal(String id, Meal meal) {
-
+       
     }
 }
