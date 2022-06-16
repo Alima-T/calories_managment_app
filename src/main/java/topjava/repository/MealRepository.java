@@ -26,21 +26,28 @@ public class MealRepository implements IRepository {
 
     @Override
     public void createMeal(Meal meal) {
-
+        if (meal.getId()==null) {
+            meal.setId(counter.incrementAndGet());
+        }
+        repository.put(meal.getId(),meal);
     }
 
     @Override
     public Collection<Meal> getAllMeals() {
-        return null;
+        return repository.values();
     }
 
     @Override
     public void deleteMeal(String id, Meal meal) {
-
+        if (meal.getId()!=null){
+            repository.remove(meal.getId(), meal);
+        }
     }
 
     @Override
     public void updateMeal(String id, Meal meal) {
-       
+        if (meal.getId()!=null){
+            repository.put(meal.getId(), meal);
+        }
     }
 }
