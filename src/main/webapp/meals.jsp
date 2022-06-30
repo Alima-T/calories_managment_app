@@ -24,6 +24,7 @@
         <th>Date</th>
         <th>Description</th>
         <th>Calories</th>
+        <th>Operators</th>
     </tr>
     <c:forEach items="${allMeals}" var="meal">
         <jsp:useBean id="meal" scope="page" type="topjava.model.MealTo"/>
@@ -34,6 +35,8 @@
             </th>
             <th>${meal.description}</th>
             <th>${meal.calories}</th>
+            <th><a href="meals?action=update&id=${meal.id}">Update</a></th>
+            <th><a href="meals?action=delete&id=${meal.id}">Delete</a></th>
         </tr>
     </c:forEach>
 </table>
