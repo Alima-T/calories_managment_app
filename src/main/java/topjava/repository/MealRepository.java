@@ -1,6 +1,5 @@
 package topjava.repository;
 
-
 import topjava.model.Meal;
 
 import java.time.LocalDateTime;
@@ -10,8 +9,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class MealRepository implements IRepository {
-    private Map<Integer, Meal> repository = new ConcurrentHashMap<>(); //thread save realisation for HashMap is ConcurrentHashMap
+public class MealRepository implements Repository {
+    private Map<Integer, Meal> repository = new ConcurrentHashMap<>();
     private AtomicInteger counter = new AtomicInteger(0);
 
     {
@@ -25,29 +24,32 @@ public class MealRepository implements IRepository {
     }
 
     @Override
-    public void createMeal(Meal meal) {
-        if (meal.getId() == null) {
-            meal.setId(counter.incrementAndGet());
-        }
-        repository.put(meal.getId(), meal);
-    }
-
-    @Override
     public Collection<Meal> getAllMeals() {
         return repository.values();
     }
 
     @Override
-    public void deleteMeal(String id, Meal meal) {
-        if (meal.getId() != null) {
-            repository.remove(meal.getId(), meal);
-        }
+    public void createMeal(Meal meal) {
+        meal.setId(counter.incrementAndGet());
+        repository.put(meal.getId(), meal);
     }
 
     @Override
-    public void updateMeal(String id, Meal meal) {
+    public void mealUpdate(String id, Meal meal) {
         if (meal.getId() != null) {
             repository.put(meal.getId(), meal);
         }
     }
+
+    @Override
+    public Meal getMealById(String id) {
+           return repository.get(id);
+    }
+
+    @Override
+    public void mealDelete(String id) {
+            repository.remove(id);
+    }
+
+
 }
